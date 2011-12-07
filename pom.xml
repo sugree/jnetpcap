@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.jnetpcap</groupId>
+  <artifactId>jnetpcap</artifactId>
+  <packaging>nar</packaging>
+  <version>1.3.0</version>
+  <name>jnetpcap</name>
+  <description>Maven NAR Plugin Wrapper around jNetPcap</description>
+  <url>http://jnetpcap.com/</url>
+
+  <scm>
+    <connection>scm:git:git://github.com/sugree/jnetpcap.git</connection>
+    <developerConnection>scm:git:git://github.com/sugree/jnetpcap.git</developerConnection>
+    <url>https://github.com/sugree/jnetpcap</url>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>libs-release.vm0</id>
+      <url>http://vm0.inox.co.th/artifactory/libs-release-local</url>
+    </repository>
+  </distributionManagement>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>plugins-snapshot.vm0</id>
+      <url>http://vm0.inox.co.th/artifactory/plugins-snapshot-local</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <defaultGoal>integration-test</defaultGoal>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-nar-plugin</artifactId>
+        <version>2.1-SNAPSHOT</version>
+        <extensions>true</extensions>
+        <configuration>
+          <libraries>
+            <library>
+              <type>jni</type>
+            </library>
+          </libraries>
+          <linker>
+            <name>g++</name>
+          </linker>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.11</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>win32</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-nar-plugin</artifactId>
+            <version>2.1-SNAPSHOT</version>
+            <configuration>
+              <os>Windows</os>
+              <architecture>x86</architecture>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>win64</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-nar-plugin</artifactId>
+            <version>2.1-SNAPSHOT</version>
+            <configuration>
+              <os>Windows</os>
+              <architecture>amd64</architecture>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>linux32</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-nar-plugin</artifactId>
+            <version>2.1-SNAPSHOT</version>
+            <configuration>
+              <os>Linux</os>
+              <architecture>i386</architecture>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>linux64</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-nar-plugin</artifactId>
+            <version>2.1-SNAPSHOT</version>
+            <configuration>
+              <os>Linux</os>
+              <architecture>amd64</architecture>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
