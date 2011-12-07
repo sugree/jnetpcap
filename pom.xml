@@ -63,6 +63,35 @@
       </plugin>
 
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>src/main/native/jnetpcap-javadoc-${project.version}-1.zip</file>
+                  <type>jar</type>
+                  <classifier>-javadoc</classifier>
+                </artifact>
+                <artifact>
+                  <file>src/main/native/jnetpcap-src-${project.version}-1.zip</file>
+                  <type>jar</type>
+                  <classifier>-sources</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.11</version>
         <configuration>
